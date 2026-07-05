@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ai-ml-loan-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m uvicorn loan_app.api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
