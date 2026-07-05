@@ -28,6 +28,8 @@ const initialFormData = {
   ext3: 0.55,
 };
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 function App() {
   const [formData, setFormData] = useState(initialFormData);
   const [results, setResults] = useState(null);
@@ -39,7 +41,7 @@ function App() {
   useEffect(() => {
     const fetchApiInfo = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/info');
+        const response = await fetch(`${API_BASE_URL}/api/info`);
         if (response.ok) {
           const data = await response.json();
           setApiInfo(data);
@@ -66,7 +68,7 @@ function App() {
     }
     
     try {
-      const response = await fetch('http://localhost:8000/api/predict', {
+      const response = await fetch(`${API_BASE_URL}/api/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
