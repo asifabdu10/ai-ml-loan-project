@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Landmark, Activity, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Landmark, Activity, CheckCircle, AlertTriangle, Sun, Moon } from 'lucide-react';
 import LoanForm from './LoanForm';
 import ResultsDashboard from './ResultsDashboard';
 import './App.css';
@@ -36,6 +36,24 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiInfo, setApiInfo] = useState(null);
   const [activeTab, setActiveTab] = useState('profile');
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) return savedTheme;
+      const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefDark ? 'dark' : 'light';
+    }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   // Fetch model metadata on load
   useEffect(() => {
@@ -101,7 +119,9 @@ function App() {
           <h1 className="app-title">AI Loan Eligibility Checker</h1>
         </div>
         
-
+        <button id="theme-toggle-button" type="button" onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle Theme">
+          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
       </header>
 
       {/* Main Container */}
