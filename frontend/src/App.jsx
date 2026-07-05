@@ -99,24 +99,7 @@ function App() {
           <h1 className="app-title">AI Loan Eligibility Checker</h1>
         </div>
         
-        {apiInfo ? (
-          apiInfo.loaded ? (
-            <div className="model-status-badge">
-              <CheckCircle size={15} />
-              <span>AI Active</span>
-            </div>
-          ) : (
-            <div className="model-status-badge error">
-              <AlertTriangle size={15} />
-              <span>System Offline</span>
-            </div>
-          )
-        ) : (
-          <div className="model-status-badge" style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', borderColor: 'var(--border-color)' }}>
-            <Activity size={15} className="spinner" style={{ animationDuration: '2s' }} />
-            <span>Connecting...</span>
-          </div>
-        )}
+
       </header>
 
       {/* Main Container */}
