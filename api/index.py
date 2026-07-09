@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 # Load the model bundle dynamically relative to this file
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "loan_app", "loan_model.pkl")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "loan_model.pkl")
 
 def load_model():
     if not os.path.exists(MODEL_PATH):
