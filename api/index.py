@@ -249,6 +249,21 @@ def predict_with_model(ap: dict):
     }
 
 # ── API Endpoints ────────────────────────────────────────────────────────────
+@app.get("/api/debug")
+def get_debug():
+    import os
+    cur_dir = os.path.dirname(__file__)
+    cwd = os.getcwd()
+    files_in_cur_dir = os.listdir(cur_dir) if os.path.exists(cur_dir) else []
+    files_in_cwd = os.listdir(cwd) if os.path.exists(cwd) else []
+    return {
+        "cur_dir": cur_dir,
+        "cwd": cwd,
+        "files_in_cur_dir": files_in_cur_dir,
+        "files_in_cwd": files_in_cwd,
+        "exists": os.path.exists(MODEL_PATH)
+    }
+
 @app.get("/api/info")
 def get_info():
     if bundle is None:
