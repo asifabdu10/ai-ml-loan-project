@@ -9,7 +9,12 @@
     },
     {
       "src": "api/index.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": [
+          "api/loan_model.pkl"
+        ]
+      }
     }
   ],
   "routes": [
