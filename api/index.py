@@ -256,12 +256,23 @@ def get_debug():
     cwd = os.getcwd()
     files_in_cur_dir = os.listdir(cur_dir) if os.path.exists(cur_dir) else []
     files_in_cwd = os.listdir(cwd) if os.path.exists(cwd) else []
+    
+    # Try loading model and catch any error
+    load_err = None
+    try:
+        import joblib
+        joblib.load(MODEL_PATH)
+    except Exception as e:
+        import traceback
+        load_err = f"{type(e).__name__}: {str(e)}\n{traceback.format_exc()}"
+        
     return {
         "cur_dir": cur_dir,
         "cwd": cwd,
         "files_in_cur_dir": files_in_cur_dir,
         "files_in_cwd": files_in_cwd,
-        "exists": os.path.exists(MODEL_PATH)
+        "exists": os.path.exists(MODEL_PATH),
+        "load_error": load_err
     }
 
 @app.get("/api/info")
